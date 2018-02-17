@@ -23,6 +23,8 @@ contract Campaign {
         mapping(address => bool) approvals;
     }
 
+    event Contribute(uint approversCount);
+
     address public manager;
     uint public minimumContribution;
     uint public approversCount;
@@ -44,6 +46,8 @@ contract Campaign {
 
         approvers[msg.sender] = true;
         approversCount++;
+
+        Contribute(approversCount);
     }
 
     function createRequest(string description, uint value, address recipient) public restricted {
